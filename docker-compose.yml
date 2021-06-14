@@ -13,6 +13,11 @@ services:
         hard: -1
     volumes:
       - ./data:/usr/share/elasticsearch/data
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
   logstash:
     image: docker.elastic.co/logstash/logstash-oss:7.10.2
     container_name: logstash-oss
@@ -21,6 +26,11 @@ services:
     volumes:
       - ./pipeline/:/usr/share/logstash/pipeline/
       - ../data/:/data/
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
   kibana:
     image: docker.elastic.co/kibana/kibana-oss:7.10.2
     container_name: kibana-oss
@@ -28,4 +38,9 @@ services:
       - elasticsearch:elasticsearch
     ports:
       - 5603:5601
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
